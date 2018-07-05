@@ -14,19 +14,19 @@ writer = csv.writer(writeFile, delimiter=";")
 writer.writerow(readData[0])
 
 for i in range(1, len(readData), 60):
-    summe = {}
+    currentSum = {}
     for j in range(0, 60):
-        for zeilen in range(0, len(readData[0])-1):
-            summe.setdefault(readData[0][zeilen], 0)
-            if zeilen == 0:
-                summe[readData[0][zeilen]] = readData[i+j][0][-8:-3]
+        for rows in range(0, len(readData[0])-1):
+            currentSum.setdefault(readData[0][rows], 0)
+            if rows == 0:
+                currentSum[readData[0][rows]] = readData[i+j][0][-8:-3]
             else:
-                summe[readData[0][zeilen]] += float(readData[i+j][zeilen])
-    for x in summe:
+                currentSum[readData[0][rows]] += float(readData[i+j][rows])
+    for x in currentSum:
         if x != "Time":
-            summe[x] /= 60
-            summe[x][0:9]
-    writer.writerow(summe.values())
+            currentSum[x] /= 60
+            currentSum[x][0:9]
+    writer.writerow(currentSum.values())
 
 writeFile.close()
 readFile.close()
