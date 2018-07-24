@@ -2,6 +2,7 @@
 # minuteAverage.py - Averages in 1 minute blocks
 
 import os, csv
+from decimal import Decimal
 
 os.chdir("C:\\Users\\Linus\\Documents\\Bachelorarbeit")
 
@@ -25,7 +26,7 @@ for i in range(1, len(readData), 60):
     for x in currentSum:
         if x != "Time":
             currentSum[x] /= 60
-            currentSum[x][0:9]
+            currentSum[x] = round(Decimal(currentSum[x]), 10)
     writer.writerow(currentSum.values())
 
 writeFile.close()
