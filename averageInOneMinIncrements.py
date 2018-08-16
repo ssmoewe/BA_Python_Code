@@ -24,7 +24,6 @@ for i in range(1, len(readData), 60):
             if rows == 0:
                 onlyNumeric = re.sub('[^0-9]','', readData[i+j][0][-8:-3])
                 currentSum[readData[0][rows]] = onlyNumeric
-                #currentSum[readData[0][rows]] = readData[i+j][0][-8:-3]
             else:
                 currentSum[readData[0][rows]] += float(readData[i+j][rows])
     for x in currentSum:
