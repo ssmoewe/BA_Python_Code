@@ -1,7 +1,7 @@
 #! python 3
 # minuteAverage.py - Averages in 1 minute blocks
 
-import os, csv, re
+import os, csv
 from decimal import Decimal
 
 def averageByTime(minutes, readFile, writeFile):
@@ -37,7 +37,7 @@ def averageByTime(minutes, readFile, writeFile):
 directory = "C:\\Users\\Linus\\bwSyncAndShare\\Linus-BA-EDR-Data (Richard Jumar)\\EDR0006_2016_L4I_csv"
 writepath = "D:\\EDR-Daten Summary Test"
 iterator = 0
-minutes = 5
+minutes = 20
 for filename in os.listdir(directory):
     readFile = os.path.join(directory, filename)
     output = filename[0:15]+'-'+filename[25:29]+'-'+filename[29:31]+'-'+filename[31:33]+'-'+str(minutes)+'min.csv'
