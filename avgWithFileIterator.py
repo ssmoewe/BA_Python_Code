@@ -37,7 +37,7 @@ def averageByTime(minutes, readFile, writeFile):
 directory = "C:\\Users\\Linus\\bwSyncAndShare\\Linus-BA-EDR-Data (Richard Jumar)\\EDR0006_2016_L4I_csv"
 writepath = "D:\\EDR-Daten Summary Test"
 iterator = 0
-minutes = 20
+minutes = 1
 for filename in os.listdir(directory):
     readFile = os.path.join(directory, filename)
     output = filename[0:15]+'-'+filename[25:29]+'-'+filename[29:31]+'-'+filename[31:33]+'-'+str(minutes)+'min.csv'
