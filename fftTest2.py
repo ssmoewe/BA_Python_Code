@@ -12,11 +12,11 @@ f2 = "KIT-EDR-CONVLOG_EDR0006_T20160126_L4I.csv"
 f3 = "KIT-EDR-CONVLOG_EDR0006_T20160127_L4I.csv"
 f4 = "KIT-EDR-CONVLOG_EDR0006_T20160128_L4I.csv"
 f5 = "KIT-EDR-CONVLOG_EDR0006_T20160129_L4I.csv"
-filename1 = "KIT-EDR-CONVLOG-2016-01-25-1min.csv"
-filename2 = "KIT-EDR-CONVLOG-2016-01-26-1min.csv"
-filename3 = "KIT-EDR-CONVLOG-2016-01-27-1min.csv"
-filename4 = "KIT-EDR-CONVLOG-2016-01-28-1min.csv"
-filename5 = "KIT-EDR-CONVLOG-2016-01-29-1min.csv"
+filename1 = "KIT-EDR-CONVLOG-2016-06-27-1min.csv"
+filename2 = "KIT-EDR-CONVLOG-2016-06-28-1min.csv"
+filename3 = "KIT-EDR-CONVLOG-2016-06-29-1min.csv"
+filename4 = "KIT-EDR-CONVLOG-2016-06-30-1min.csv"
+filename5 = "KIT-EDR-CONVLOG-2016-07-01-1min.csv"
 
 file1 = os.path.join(directory, filename1)
 file2 = os.path.join(directory, filename2)
@@ -36,16 +36,17 @@ cont = pd.concat(test, ignore_index=True)
 
 cont.PowerP = cont.PowerP.interpolate()
 
+
 plt.figure(figsize=(14,5))
 #df1.PowerP.plot()
 plt.plot(cont.PowerP)
 plt.xlim(0, None)
 plt.ylim(0, None)
-plt.ylabel("Power")
+plt.ylabel('Power [$W$]')
 plt.xlabel("Time in Minutes")
 plt.title("Power KW1 2016")
 plt.grid(linestyle="--")
-plt.savefig(os.path.join(savepath, "2016 1M - KW4.pdf"), format="pdf")
+plt.savefig(os.path.join(savepath, "2016 1M - KW20.pdf"), format="pdf")
 
 hann = np.hanning(len(cont.PowerP.values))  #Hanning Filter
 
@@ -61,9 +62,9 @@ X = np.linspace(0, fa/2, N, endpoint=True)
 plt.figure(figsize=(15,6))
 plt.plot(X, 2.0*np.abs(Y[:N])/N)
 plt.xlabel('Frequency ($Hz$)')
-plt.ylabel('Power')
+plt.ylabel('Power [$W$]')
 plt.title("FFT")
-plt.savefig(os.path.join(savepath, "2016 1M - KW4 FFT.pdf"), format="pdf")
+plt.savefig(os.path.join(savepath, "2016 1M - KW20 FFT.pdf"), format="pdf")
 
 Xp = 1.0/X          # in seconds
 Xph= Xp/(60.0*60.0) # in hours
@@ -71,6 +72,7 @@ Xph= Xp/(60.0*60.0) # in hours
 plt.figure(figsize=(15,6))
 plt.plot(Xph, 2.0*np.abs(Y[:N])/N)
 plt.xlabel('Period ($h$)')
-plt.ylabel("Power")
+plt.ylabel('Power [$W$]')
 plt.grid(linestyle=":")
-plt.savefig(os.path.join(savepath, "2016 1M - KW4 FFT in Period.pdf"), bbox_inches='tight', papertype="ledger", format="pdf")
+plt.xscale("log")
+plt.savefig(os.path.join(savepath, "2016 1M - KW20 FFT in Period.pdf"), bbox_inches='tight', papertype="ledger", format="pdf")
