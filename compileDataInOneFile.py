@@ -2,7 +2,7 @@ import os
 import csv
 
 savepath = "D:\\EDR-Daten Processed Stash"
-directory = "D:\\EDR-Daten Processed Stash\\15Min0CO"
+directory = "D:\\EDR-Daten Processed Stash\\5Min0CO"
 firstLine = ['Time', 'ms+-', 'PowerP', 'Stabw P', 'PowerQ', 'Gleichspannung', 'Gleichrichtwert', 'Effektivwert', 'Scheitelfaktor',
              'Amplitude', 'Abs. MaxA', 'Stabw Ieff', 'Stabw Imid', 'Stabw Iss', 'THD', 'Phase', 'Number', 'OW0 [%]', 'OW2 [%]',
              'OW3 [%]', 'OW4 [%]', 'OW5 [%]', 'OW6 [%]', 'OW7 [%]', 'OW8 [%]', 'OW9 [%]', 'OW10 [%]', 'OW11 [%]', 'OW12 [%]',
@@ -10,7 +10,7 @@ firstLine = ['Time', 'ms+-', 'PowerP', 'Stabw P', 'PowerQ', 'Gleichspannung', 'G
 
 allFiles = len([name for name in os.listdir(directory) if os.path.isfile(os.path.join(directory, name))])
 iterator = 0
-outFile = os.path.join(savepath, "2016 - 15Min Steps.csv")
+outFile = os.path.join(savepath, "2016 - 5Min Steps.csv")
 wf1 = open(outFile, "w", newline="")
 writer = csv.writer(wf1, delimiter=";")
 writer.writerow(firstLine)
