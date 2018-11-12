@@ -1,30 +1,23 @@
 import pandas as pd
 import numpy as np
 from numpy import array
-import matplotlib.pyplot as plt
 import os
-import scipy
 import time
-from datetime import datetime
-from sklearn.preprocessing import MinMaxScaler
-from scipy.cluster.hierarchy import dendrogram, linkage
 
 start = time.time()
 
 minutes = 15
-
+amountCentroids = 2
 savepath = "D:\\EDR Visualisazion"
 directory = "D:\\EDR-Daten Processed Stash"
 filename = "2016 - " + str(minutes) + "Min Steps.csv"
+writefile = "k-means (" + str(amountCentroids) + " centroids, " + str(minutes) + "min).txt"
 file = os.path.join(directory, filename)
-
 
 result = pd.read_csv(file, sep=';', header=0)
 result["PowerP"] = result["PowerP"].abs()
 
 fill = []
-#timestamps = []
-#print(len(result["PowerP"]))
 step = int(1440 / minutes)
 
 for i in range(0, len(result["PowerP"]), step):
@@ -37,9 +30,9 @@ fill = array(fill)
 
 def euclid_dist(t1, t2):
          return np.sqrt(((t1-t2)**2).sum())
+     
 def k_means(data, num_clust, num_iter):
-#    centroids = fill[np.random.randint(0, fill.shape[0], num_clust)]
-    centroids = fill
+    centroids = fill[np.random.randint(0, fill.shape[0], num_clust)]
 
     for n in range(num_iter): 
         assignments={}
@@ -67,33 +60,37 @@ def k_means(data, num_clust, num_iter):
     return centroids
 
 t1 = time.time()
-centroids = k_means(fill, 7, 100)
+centroids = k_means(fill, amountCentroids, 100)
 t2 = time.time()
 print("Took {} seconds".format(t2 - t1))
-print(centroids)
+
+sort = []
+for i in range(amountCentroids):
+    sort.append([])
+    
 for i in range(0, len(fill)):
+    minDist = float("inf")
+    clust = -1
     for j in range(0, len(centroids)):
-#        print(i, j)
-        if sorted(fill[i]) == sorted(centroids[j]):
-            print (fill[i], j)
-#        print(sorted(centroids[i]) == sorted(centroids[j]), i, j)
+        dist = euclid_dist(fill[i], centroids[j])
+        if dist < minDist:
+            minDist = dist
+            clust = j
+    sort[clust].append((i, fill[i]))
+    
+wf1 = open(os.path.join(directory, writefile), "w")
+for i in range(0, len(sort)):
+    tmp = ""
+    for j in range(0, len(sort[i])-1):
+        tmp += str(sort[i][j][0]) + ", "
+    tmp += str(sort[i][-1][0])
+    wf1.write(tmp)
+    wf1.write("\n")
+
+wf1.close()
 
 
 
-#plt.figure(figsize=(100, 40))
-#plt.title("Clustering Dendrogram (k-means)")
-#plt.xlabel("Index (corresponding to a date)")
-#plt.ylabel("Distance")
-#plt.rcParams.update({'font.size': 70})
-#dendrogram(
-#        centroids,
-##        labels = timestamps,
-#        leaf_rotation = 90,
-#        leaf_font_size = 8.,
-#        )
-#
-##plt.show()
-#
-#
-#fig = plt.gcf()
-#fig.savefig(os.path.join(savepath, "Dendrogram k-means Algorithm " + str(minutes) + "m.pdf"))
+
+
+
