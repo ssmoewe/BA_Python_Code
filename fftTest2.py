@@ -5,32 +5,49 @@ import os
 
 savepath = "D:\\EDR Visualisazion"
 
-directory = "D:\\EDR-Daten Preprocessed Stash\\1Min7CO"
-dir2 = "C:\\Users\\Linus\\bwSyncAndShare\\Linus-BA-EDR-Data (Richard Jumar)\\EDR0006_2016_L4I_csv"
-f1 = "KIT-EDR-CONVLOG_EDR0006_T20160125_L4I.csv"
-f2 = "KIT-EDR-CONVLOG_EDR0006_T20160126_L4I.csv"
-f3 = "KIT-EDR-CONVLOG_EDR0006_T20160127_L4I.csv"
-f4 = "KIT-EDR-CONVLOG_EDR0006_T20160128_L4I.csv"
-f5 = "KIT-EDR-CONVLOG_EDR0006_T20160129_L4I.csv"
-filename1 = "KIT-EDR-CONVLOG-2016-06-27-1min.csv"
-filename2 = "KIT-EDR-CONVLOG-2016-06-28-1min.csv"
-filename3 = "KIT-EDR-CONVLOG-2016-06-29-1min.csv"
-filename4 = "KIT-EDR-CONVLOG-2016-06-30-1min.csv"
-filename5 = "KIT-EDR-CONVLOG-2016-07-01-1min.csv"
+directory = "D:\\EDR-Daten Processed Stash\\1Min0CO"
+#directory = "C:\\Users\\Arne\\bwSyncAndShare\\Linus-BA-EDR-Data (Richard Jumar)\\EDR0006_2016_L4I_csv"
+f1 = "KIT-EDR-CONVLOG_EDR0006_T20160530_L4I.csv"
+f2 = "KIT-EDR-CONVLOG_EDR0006_T20160531_L4I.csv"
+f3 = "KIT-EDR-CONVLOG_EDR0006_T20160601_L4I.csv"
+f4 = "KIT-EDR-CONVLOG_EDR0006_T20160602_L4I.csv"
+f5 = "KIT-EDR-CONVLOG_EDR0006_T20160603_L4I.csv"
+f6 = "KIT-EDR-CONVLOG_EDR0006_T20160604_L4I.csv"
+f7 = "KIT-EDR-CONVLOG_EDR0006_T20160605_L4I.csv"
+
+filename1 = "KIT-EDR-CONVLOG-2016-05-30-1min.csv"
+filename2 = "KIT-EDR-CONVLOG-2016-05-31-1min.csv"
+filename3 = "KIT-EDR-CONVLOG-2016-06-01-1min.csv"
+filename4 = "KIT-EDR-CONVLOG-2016-06-02-1min.csv"
+filename5 = "KIT-EDR-CONVLOG-2016-06-03-1min.csv"
+filename6 = "KIT-EDR-CONVLOG-2016-06-04-1min.csv"
+filename7 = "KIT-EDR-CONVLOG-2016-06-05-1min.csv"
 
 file1 = os.path.join(directory, filename1)
 file2 = os.path.join(directory, filename2)
 file3 = os.path.join(directory, filename3)
 file4 = os.path.join(directory, filename4)
 file5 = os.path.join(directory, filename5)
+file6 = os.path.join(directory, filename6)
+file7 = os.path.join(directory, filename7)
+
+#file1 = os.path.join(directory, f1)
+#file2 = os.path.join(directory, f2)
+#file3 = os.path.join(directory, f3)
+#file4 = os.path.join(directory, f4)
+#file5 = os.path.join(directory, f5)
+#file6 = os.path.join(directory, f6)
+#file7 = os.path.join(directory, f7)
 
 df1 = pd.read_csv(file1, sep=';', parse_dates=[[0, 0]])
 df2 = pd.read_csv(file2, sep=";", parse_dates=[[0, 0]])
 df3 = pd.read_csv(file3, sep=";", parse_dates=[[0, 0]])
 df4 = pd.read_csv(file4, sep=";", parse_dates=[[0, 0]])
 df5 = pd.read_csv(file5, sep=";", parse_dates=[[0, 0]])
+df6 = pd.read_csv(file6, sep=";", parse_dates=[[0, 0]])
+df7 = pd.read_csv(file7, sep=";", parse_dates=[[0, 0]])
 
-test = [df1, df2, df3, df4, df5]
+test = [df1, df2, df3, df4, df5, df6, df7]
 
 cont = pd.concat(test, ignore_index=True)
 
@@ -48,9 +65,9 @@ plt.title("Power KW1 2016")
 plt.grid(linestyle="--")
 plt.savefig(os.path.join(savepath, "2016 1M - KW20.pdf"), format="pdf")
 
-hann = np.hanning(len(cont.PowerP.values))  #Hanning Filter
+#hann = np.hanning(len(cont.PowerP.values))  #Hanning Filter
 
-Y = np.fft.fft(hann*cont.PowerP.values)     #FFT
+Y = np.fft.fft(cont.PowerP.values)     #FFT
 
 N = int(len(Y)/2+1)                         
 fa = 1.0/(1.0*60.0)
@@ -75,4 +92,5 @@ plt.xlabel('Period ($h$)')
 plt.ylabel('Power [$W$]')
 plt.grid(linestyle=":")
 plt.xscale("log")
+plt.grid(True)
 plt.savefig(os.path.join(savepath, "2016 1M - KW20 FFT in Period.pdf"), bbox_inches='tight', papertype="ledger", format="pdf")

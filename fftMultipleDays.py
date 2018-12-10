@@ -3,11 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-kw = 36
+kw = 22
 
 savepath = "D:\\EDR Visualisazion"
 
-directory = "D:\\EDR-Daten Preprocessed Stash\\1Min7CO\\temp"
+directory = "D:\\EDR-Daten Processed Stash\\1Min0CO\\temp"
 test = []
 
 for filename in os.listdir(directory):
@@ -44,7 +44,7 @@ X = np.linspace(0, fa/2, N, endpoint=True)
 
 plt.figure(figsize=(15,6))
 plt.plot(X, 2.0*np.abs(Y[:N])/N)
-plt.xlabel('Frequency ($Hz$)')
+plt.xlabel('Frequency ($Hz$)')  
 plt.ylabel('Power [$W$]')
 plt.title("FFT")
 plt.savefig(os.path.join(savepath, "2016 1M - KW" + str(kw) + " FFT.pdf"), format="pdf")
@@ -52,10 +52,17 @@ plt.savefig(os.path.join(savepath, "2016 1M - KW" + str(kw) + " FFT.pdf"), forma
 Xp = 1.0/X          # in seconds
 Xph= Xp/(60.0*60.0) # in hours
 
-plt.figure(figsize=(15,6))
-plt.plot(Xph, 2.0*np.abs(Y[:N])/N)
-plt.xlabel('Period ($h$)')
-plt.ylabel('Power [$W$]')
-plt.grid(linestyle=":")
+plt.figure(figsize=(30, 15))
+plt.plot(Xph, 2.0*np.abs(Y[:N])/N, linewidth=3.0)
+#plt.xlabel('Period ($h$)')
+
+plt.xlabel("Period ($h$)", fontsize=35)
+plt.xticks(fontsize=25)
+plt.ylabel("Power ($W$)", fontsize=35)
+plt.yticks(fontsize=25)
+#print(plt.xticks())
+
+#plt.ylabel('Power [$W$]')
+plt.grid(True, which="minor", axis="x")
 plt.xscale("log")
 plt.savefig(os.path.join(savepath, "2016 1M - KW" + str(kw) + " FFT in Period.pdf"), bbox_inches='tight', papertype="ledger", format="pdf")

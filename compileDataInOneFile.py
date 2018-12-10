@@ -4,8 +4,8 @@ import sys
 import time
 
 savepath = "D:\\EDR-Daten Processed Stash"
-directory = "D:\\EDR-Daten Processed Stash\\1Min0CO"
-directory = "C:\\Users\\Arne\\bwSyncAndShare\\Linus-BA-EDR-Data (Richard Jumar)\\EDR0006_2016_L4I_csv"
+directory = "D:\\EDR-Daten Processed Stash\\15Min7CO"
+#directory = "C:\\Users\\Arne\\bwSyncAndShare\\Linus-BA-EDR-Data (Richard Jumar)\\EDR0006_2016_L4I_csv"
 firstLine = ['Time', 'ms+-', 'PowerP', 'Stabw P', 'PowerQ', 'Gleichspannung', 'Gleichrichtwert', 'Effektivwert', 'Scheitelfaktor',
              'Amplitude', 'Abs. MaxA', 'Stabw Ieff', 'Stabw Imid', 'Stabw Iss', 'THD', 'Phase', 'Number', 'OW0 [%]', 'OW2 [%]',
              'OW3 [%]', 'OW4 [%]', 'OW5 [%]', 'OW6 [%]', 'OW7 [%]', 'OW8 [%]', 'OW9 [%]', 'OW10 [%]', 'OW11 [%]', 'OW12 [%]',
@@ -14,7 +14,7 @@ firstLine = ['Time', 'ms+-', 'PowerP', 'Stabw P', 'PowerQ', 'Gleichspannung', 'G
 t1 = time.time()
 allFiles = len([name for name in os.listdir(directory) if os.path.isfile(os.path.join(directory, name))])
 iterator = 0
-outFile = os.path.join(savepath, "2016 - 0.016Min Steps.csv")
+outFile = os.path.join(savepath, "2016 - 15Min 7CO.csv")
 wf1 = open(outFile, "w", newline="")
 writer = csv.writer(wf1, delimiter=";")
 writer.writerow(firstLine)
